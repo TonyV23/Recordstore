@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+    url(r'^store/', include('store.urls')),
     url(r'^admin/', admin.site.urls),
 ]
 
