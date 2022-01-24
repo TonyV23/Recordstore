@@ -19,6 +19,7 @@ class Album(models.Model):
 class Booking(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   contacted = models.BooleanField(default=True)
-  contact = models.ForeignKey(Contact, on_delete=CASCADE)
-  album = models.OneToOneField(Album)
+  contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+  album = models.OneToOneField(Album,on_delete=models.CASCADE)
 
+ 
