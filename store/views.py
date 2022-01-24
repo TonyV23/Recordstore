@@ -1,4 +1,5 @@
-# from django.shortcuts import render
+from django.shortcuts import render
+from django.template import loader
 from django.http import HttpResponse
 
 from .models import Album, Artist, Booking, Contact
@@ -6,8 +7,8 @@ from .models import Album, Artist, Booking, Contact
 def home_view(request):
     albums = Album.objects.filter(available=True).order_by('-created_at')[:12]
     formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
-    message = """<ul>{}</ul>""".format("\n".join(formatted_albums))
-    return HttpResponse(message)
+    template = loader.get_template('store/index.html')
+    return HttpResponse(template.render(request=request))
 
 def listing_album_view(request):
     albums = Album.objects.filter(available=True)
