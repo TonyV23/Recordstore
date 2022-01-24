@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
+from matplotlib.style import context
 
 from .models import Album, Artist, Booking, Contact
 
@@ -8,7 +9,8 @@ def home_view(request):
     albums = Album.objects.filter(available=True).order_by('-created_at')[:12]
     formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
     template = loader.get_template('store/index.html')
-    return HttpResponse(template.render(request=request))
+    context = {'albums':albums}
+    return HttpResponse(template.render(context, request=request))
 
 def listing_album_view(request):
     albums = Album.objects.filter(available=True)
