@@ -1,5 +1,5 @@
 env/
-disquaire_project/recordstore/__pycache__
+recordstore/recordstore/__pycache__
 recordstore/recordstore/store/__pycache__/
 recordstore/recordstore/store/management/
-recordstore/disquaire_project/store/migrations/__pycache__/
+recordstore/recordstore/store/migrations/__pycache__/
