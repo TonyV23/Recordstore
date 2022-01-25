@@ -21,7 +21,8 @@ def listing_album_view(request):
         #if page is out of range, deliver last page of results
         albums = paginator.page(paginator.num_pages)
     context = {
-        'albums':albums
+        'albums':albums,
+        'paginate' :True
     }
     return render(request, 'store/listing.html', context)
 

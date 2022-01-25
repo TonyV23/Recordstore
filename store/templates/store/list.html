@@ -25,5 +25,17 @@
         </div>
         {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
     {% endfor %}
-
+    {% if paginate %}
+    <div class="clearfix"></div>
+    <nav aria-label="">
+        <ul class="pager">
+            {% if albums.has_previous %}
+            <li><a href="?page={{ albums.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% if albums.has_next %}
+            <li><a href="?page={{ albums.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 {% endif %}
