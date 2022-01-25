@@ -6,8 +6,8 @@ from django.urls import path
 from store import views
 
 urlpatterns = [
-    path('',views.home_view),
-    url(r'^store/', include('store.urls')),
+    url(r'^$',views.home_view),
+    url(r'^store/', include('store.urls',namespace='store')),
     url(r'^admin/', admin.site.urls),
 ]
 
