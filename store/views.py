@@ -1,8 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Album, Artist, Booking, Contact
 
 def home_view(request):
-    helldesr
     albums = Album.objects.filter(available=True).order_by('-created_at')[:12]
     context = {'albums':albums}
     return render(request, 'store/index.html', context)
@@ -15,7 +14,7 @@ def listing_album_view(request):
     return render(request, 'store/listing.html', context)
 
 def detail_album_view(request, album_id):
-    album =Album.objects.get(pk =album_id)
+    album =get_object_or_404(Album, pk=album_id)
     artists_name = "".join([artist.name for artist in album.artists.all()])
     context = {
         'album_title': album.title,
