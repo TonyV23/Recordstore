@@ -2,8 +2,8 @@ from django.shortcuts import render
 from .models import Album, Artist, Booking, Contact
 
 def home_view(request):
+    helldesr
     albums = Album.objects.filter(available=True).order_by('-created_at')[:12]
-    # formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
     context = {'albums':albums}
     return render(request, 'store/index.html', context)
 
