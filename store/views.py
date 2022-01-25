@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
-from matplotlib.style import context
-
 from .models import Album, Artist, Booking, Contact
 
 def home_view(request):
@@ -14,15 +12,21 @@ def home_view(request):
 
 def listing_album_view(request):
     albums = Album.objects.filter(available=True)
-    formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
-    message = """<ul>{}</ul>""".format("\n".join(formatted_albums))
-    return HttpResponse(message)
+    context = {
+        'albums':albums
+    }
+    return HttpResponse(context)
 
 def detail_album_view(request, album_id):
     album =Album.objects.get(pk =album_id)
-    artists = "".join([artist.name for artist in album.artists.all()])
-    message = " Le nom de l'album est {} . il a été ecrit par {} ".format(album.title, artists)
-    return HttpResponse (message)
+    artists_name = "".join([artist.name for artist in album.artists.all()])
+    context = {
+        'album_title': album.title,
+        'artist_name': artists_name,
+        'album_id': album.id,
+        'thumbnail': album.picture
+    }
+    return HttpResponse (context)
 
 def search_album_view(request):
     query = request.GET.get('query')
@@ -43,4 +47,9 @@ def search_album_view(request):
                 Les resultats de votre recherche :
                     <ul>{}</ul>
             """.format("<li></li>".join(albums))
-    return HttpResponse(message)
+    title = "Results for the query %s"%query        
+    context = {
+        'albums' : albums,
+        'title' : title
+    }
+    return HttpResponse(context)
