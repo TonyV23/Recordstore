@@ -7,7 +7,7 @@ from store import views
 
 urlpatterns = [
     url(r'^$',views.home_view),
-    url(r'^store/', include('store.urls',namespace='store')),
+    url(r'^store/', include(('store.urls','store'),namespace ='store')),
     url(r'^admin/', admin.site.urls),
 ]
 

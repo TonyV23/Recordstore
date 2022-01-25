@@ -34,16 +34,6 @@ def search_album_view(request):
         
         if not albums.exists():
             albums = Album.objects.filter(artists__name__icontains=query)
-        
-        if not albums.exists():
-            message = "Y a R Viper23"
-        
-        else :
-            albums = ["<li>{}</li>".format(album.title) for album in albums]
-            message = """
-                Les resultats de votre recherche :
-                    <ul>{}</ul>
-            """.format("<li></li>".join(albums))
     title = "Results for the query %s"%query        
     context = {
         'albums' : albums,
