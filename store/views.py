@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from .models import Album, Artist, Booking, Contact
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 
 def home_view(request):
     albums = Album.objects.filter(available=True).order_by('-created_at')[:12]
@@ -7,7 +9,17 @@ def home_view(request):
     return render(request, 'store/index.html', context)
 
 def listing_album_view(request):
-    albums = Album.objects.filter(available=True)
+    albums_list = Album.objects.filter(available=True)
+    paginator = Paginator(albums_list, 5)
+    page = request.GET.get('page')
+    try :
+        albums = paginator.page(page)
+    except PageNotAnInteger :
+        #if page not an integer, deliver first page
+        albums = paginator.page(1)
+    except EmptyPage :
+        #if page is out of range, deliver last page of results
+        albums = paginator.page(paginator.num_pages)
     context = {
         'albums':albums
     }
