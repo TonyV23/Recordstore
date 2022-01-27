@@ -15,7 +15,7 @@
 
   <h2 class="text-center artist_name">Réserver {{ album_title }}</h2>
   <p style="margin-bottom: 20px;">Demandez-nous de mettre de côté {{ album_title }} et venez le chercher dès demain en magasin ! </p>
-  <form class="form-inline" action="/" method="post">
+  <form class="form-inline" action="{% url 'store:detail' album_id= album_id %}" method="post">
 
     <div class="form-group">
       <label for="name" class="control-label">Nom</label>
@@ -25,7 +25,7 @@
       <label for="email" class="control-label">E-mail</label>
       <input type="text" name="email" value="" id="email">
     </div>
-    <!-- <input type="hidden" class="hidden" value="" name="album_id"> -->
+    <!-- <input type="hidden" class="hidden" value="album_id" name="album_id"> -->
 
     <button type="submit" class="btn btn-success">Réserver</button>
   </form>
